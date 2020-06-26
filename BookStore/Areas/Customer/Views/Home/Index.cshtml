@@ -1,0 +1,352 @@
+﻿@model BookStore.Models.ViewModel.BooksViewModel
+@using BookStore.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Home Page";
+}
+    <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167992497-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-167992497-1');
+        </script>
+    </head>
+<br />
+<br />
+<div id="home" style="width:100%;background-color:#ffffff">
+    <div classs="row">
+        <div id="demo" class="col-9 carousel slide" style="height: 420px;width:920px;float:left;margin-top:32px" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @{int i = 0;}
+                @foreach (var banner in Model.Banners)
+                {
+                    i++;
+                    var active = i == 1 ? "active" : "";
+                <div class="carousel-item @active">
+                    <img style="height:420px;object-fit:cover" src="@banner.Image" alt="">
+                </div>
+                }
+            </div>
+            <a class="carousel-control-prev" style="width:5%;" href="#demo" role="button" data-slide="prev">
+                <i class="fas fa-chevron-circle-left" style="font-size:30px"></i>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" style="width:5%;" href="#demo" role="button" data-slide="next">
+                <i class="fas fa-chevron-circle-right" style="font-size:30px;"></i>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        @*<div class="col-3" style="float:right;background-color:azure">
+
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                {
+                    <label>Tác giả tiêu biểu</label>
+                    <table class="rank" style="border-collapse: collapse;width:100%;padding-bottom:5px">
+                        <tbody>
+                            @{int x = 0; }
+                            @foreach (var item in Model.Top5Author)
+                            {
+                                x++;
+                                <tr>
+                                    <td>@x</td>
+
+                                    <td>
+                                        <button value="@item.SecondName" name="search" type="submit">
+                                            <img style="width:80px;height:80px" src="@item.Image" />
+                                            @item.SecondName
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>*@
+    </div>
+    <div class="clearfix"></div>
+    @*<div id="highpaid" class="col-9 carousel slide" style="height: 10px;" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @{int y = 0;}
+                @foreach (var item in Model.PotentialCustomerViewModels)
+                {
+                    y++;
+                    var active = y == 1 ? "active" : "";
+                    <div class="carousel-item @active">
+                        <label>@item.Email đã tiêu @item.Total</label>
+                    </div>
+                }
+            </div>
+        </div>*@
+    <br />
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+    @*<script>
+            function myFunction() {
+                var get1 = document.getElementById("author").value;
+                var get2 = document.getElementById("genres").value;
+                var get3 = document.getElementById("order").value;
+
+                var author = convertString(get1);
+                var genres = convertString(get2);
+                var order = convertString(get3);
+
+                document.getElementById("authorparam").value = author;
+                document.getElementById("genresparam").value = genres;
+                document.getElementById("orderparam").value = order;
+            }
+            function concat(a, b, c) {
+                var url = a + "/" + b + "/" + c;
+                if (a == "") {
+                    if (b == "") {
+                        if (c == "")
+                            return null;
+                        else {
+                            return c;
+                        }
+                    }
+                    else {
+                        if (c == "")
+                            return b;
+                        else
+                            return b + "/" + c
+                    }
+                }
+                else {
+                    if (b == "")
+                        if (c == "")
+                            return a;
+                        else return a + "/" + c;
+                    else
+                        if (c == "")
+                            return a + "/" + b;
+                        else return a + "/" + b + "/" + c;
+                }
+            }
+            function convertString(a) {
+                var lowercase = a.toLowerCase();
+                var res = lowercase.replace(/ /g, "-");
+                var res1 = res.replace(/â|ẫ|ậ|ầ|ẩ|ấ|ặ|ẳ|ằ|ẵ|ă|ắ|à|á|ạ|ã|ả/g, "a");
+                var res2 = res1.replace(/ê|ể|ề|ệ|ễ|ế/g, "e");
+                var res3 = res2.replace(/ô|ổ|ồ|ố|ộ|ỗ/g, "o");
+                var res4 = res3.replace(/ỉ|ì|í|ị|ĩ/g, "i");
+                var res5 = res4.replace(/ủ|ũ|ú|ù|ụ/g, "u");
+                var res6 = res5.replace(/ý|ỷ|ỳ|ỹ|ỵ/g, "y");
+                return res6;
+            }
+        </script>
+
+        <select id="author" class="browser-default custom-select form-control" style="width: 150px">
+            <option value="">Tác giả</option>
+            @foreach (var item in Model.Authors)
+            {
+                <option value="@item.SecondName">@item.SecondName</option>
+            }
+        </select>
+        <select id="genres" class="browser-default custom-select form-control" style="width: 150px">
+            <option value="">Thể loại</option>
+            @foreach (var item in Model.BookGenrersViewModels)
+            {
+                <option value="@item.BookGenrer.Name">@item.BookGenrer.Name</option>
+            }
+        </select>*@
+    <select id="order" class="browser-default custom-select form-control" style="width: 150px">
+        <option value="">Sắp xếp</option>
+        <option value="a-z">A-Z</option>
+        <option value="z-a">Z-A</option>
+        <option value="ngay-xuat-ban">Ngày xuất bản</option>
+        <option value="gia-giam-dan">Giá giảm dần</option>
+        <option value="gia-tang-dan">Giá tăng dần</option>
+    </select>
+
+    <input id="authorparam" hidden value="" name="authorparam" />
+    <input id="genresparam" hidden value="" name="genresparam" />
+    <input id="orderparam" hidden value="" name="orderparam" />
+    <button type="submit" class="btn btn-primary" onclick="myFunction()">Tìm kiếm</button>
+    }
+    <div class="row">
+        <i class="fas fa-tags" style="font-size: 35px;margin-top: 25px;margin-left:20px;width:40px"></i>
+        <ul class="list-group-horizontal" style="margin-top: 20px">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+
+            @foreach (SpecialTag specialtag in ViewBag.SpecialTag)
+                {
+            <li class="list-inline-item"><a type="submit" href="/@specialtag.Alias-@specialtag.ID" name="tag" value="@specialtag.Name" onclick="document.getElementById('myform').submit()" style="font-size:20px;color:white;background-color:dodgerblue;border-radius:10px">@specialtag.Name</a></li>
+                }
+
+            }
+        </ul>
+    </div>
+    <div class="row" style="width:100%">
+
+        @foreach (var book in Model.Books)
+        {
+        <a asp-action="Details" asp-controller="Home" class="btn col-sm-2 book-hover" asp-route-id="@book.ID">
+            <img style="height:180px;width:180px" src="@book.Image" alt="Card Image" />
+            <div class="d-flex">
+                <p class="text-overflow-show" style="font-size:16px; color:#242424;float:left" title="@book.BookName">
+                    @book.BookName
+                </p>
+            </div>
+            <p style="text-align:left;">@book.BookPrice<span>đ</span></p>
+        </a>
+        }
+        <br />
+    </div>
+    @if (Model.Top10BestSeller != null)
+    {
+    <hr />
+    <h4>Sản phẩm bán chạy</h4>
+    @if (Model.Top10BestSeller.Count > 0)
+        {
+    <div id="bestseller" class="carousel slide" data-ride="carousel" style="background-color:white;height:200px">
+        <div class="carousel-inner">
+            @{int index = 0;}
+            @for (int j = 0; j < Model.Top10BestSeller.Count; j++)
+                    {
+            @if ((j + 5) >= Model.Top10BestSeller.Count)
+                        {
+                            break;
+                        }
+                        index++;
+                        var active = index == 1 ? "active" : "";
+            <div class="carousel-item @active">
+                <div class="row">
+                    @for (int k = j; k < j + 5; k++)
+                                {
+                    @if ((j + 5) >= Model.Top10BestSeller.Count)
+                                    {
+                                        break;
+                                    }
+                    <div class="col-md-2" style="margin-left:27px">
+                        <a asp-action="Details" asp-controller="Home" class="btn" asp-route-id="@Model.Top10BestSeller[k].ID">
+                            <img style="width:200px;height:200px" src="@Model.Top10BestSeller[k].Image" alt="">
+                        </a>
+                    </div>
+
+                                }
+                </div>
+            </div>
+                    }
+        </div>
+        <a class="carousel-control-prev" style="width:5%;" href="#bestseller" role="button" data-slide="prev">
+            <i class="fas fa-chevron-circle-left" style="font-size:30px"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" style="width:5%;" href="#bestseller" role="button" data-slide="next">
+            <i class="fas fa-chevron-circle-right" style="font-size:30px;"></i>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+        }
+    }
+    <br />
+    @if (Model.HighRate != null)
+    {
+    <hr />
+    <h4>Sản phẩm được đánh giá cao</h4>
+    @if (Model.HighRate.Count > 0)
+        {
+    <div id="highrate" class="carousel slide" data-ride="carousel" style="background-color:white;height:200px">
+        <div class="carousel-inner">
+            @{int index2 = 0;}
+            @for (int j = 0; j < Model.HighRate.Count; j++)
+                    {
+            @if ((j + 5) >= Model.HighRate.Count)
+                        {
+                            break;
+                        }
+                        index2++;
+                        var active = index2 == 1 ? "active" : "";
+            <div class="carousel-item @active">
+                <div class="row">
+                    @for (int k = j; k < j + 5; k++)
+                                {
+                    @if ((j + 5) >= Model.HighRate.Count)
+                                    {
+                                        break;
+                                    }
+                    <div class="col-md-2" style="margin-left:27px">
+                        <a asp-action="Details" asp-controller="Home" class="btn" asp-route-id="@Model.HighRate[k].ID">
+                            <img style="width:200px;height:200px" src="@Model.HighRate[k].Image" alt="">
+                        </a>
+                    </div>
+
+                                }
+                </div>
+            </div>
+                    }
+        </div>
+        <a class="carousel-control-prev" style="width:5%;" href="#highrate" role="button" data-slide="prev">
+            <i class="fas fa-chevron-circle-left" style="font-size:30px"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" style="width:5%;" href="#highrate" role="button" data-slide="next">
+            <i class="fas fa-chevron-circle-right" style="font-size:30px;"></i>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+        }
+    }
+    <br />
+    @if (Model.BooksSeen != null)
+    {
+    <hr />
+    <h4>Sản phẩm bạn đã xem</h4>
+    @if (Model.BooksSeen.Count > 0)
+        {
+    <div id="bookseen" class="carousel slide" data-ride="carousel" style="background-color:white;height:200px">
+        <div class="carousel-inner">
+            @{int index1 = 0;}
+            @for (int j = 0; j < Model.BooksSeen.Count; j++)
+                    {
+                        if (Model.BooksSeen.Count > 5 && (j + 5) >= Model.BooksSeen.Count)
+                        {
+                            break;
+                        }
+                        index1++;
+                        var active = index1 == 1 ? "active" : "";
+            <div class="carousel-item @active">
+                <div class="row">
+                    @for (int k = j; k < j + 5; k++)
+                                {
+                                    if (Model.BooksSeen.Count > 5 && (j + 5) >= Model.BooksSeen.Count)
+                                    {
+                                        break;
+                                    }
+                                    if (k >= Model.BooksSeen.Count)
+                                    {
+                                        break;
+                                    }
+                    <div class="col-md-2 col-sm-6 col-12" style="margin-left:27px">
+                        <a asp-action="Details" asp-controller="Home" class="btn" asp-route-id="@Model.BooksSeen[k].ID">
+                            <img style="width:200px;height:200px" src="@Model.BooksSeen[k].Image" alt="">
+                        </a>
+                    </div>
+                                }
+                </div>
+            </div>
+                    }
+        </div>
+        <a class="carousel-control-prev" style="width:5%;" href="#bookseen" role="button" data-slide="prev">
+            <i class="fas fa-chevron-circle-left" style="font-size:30px"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" style="width:5%;" href="#bookseen" role="button" data-slide="next">
+            <i class="fas fa-chevron-circle-right" style="font-size:30px;"></i>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+        }
+    }
+    <br />
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn border" page-class-normal="btn btn-default active"
+         page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+
+</div>
+

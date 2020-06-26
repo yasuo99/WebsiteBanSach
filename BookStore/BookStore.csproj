@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>aspnet-BookStore-4FA2222C-B364-424E-9597-93CD1BF5D8E5</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191115130505_addAuthorToDatabase.cs" />
+    <Compile Remove="Data\Migrations\20191115130505_addAuthorToDatabase.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191116013339_init.cs" />
+    <Compile Remove="Data\Migrations\20191116013339_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191116144943_init.cs" />
+    <Compile Remove="Data\Migrations\20191116144943_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191117074653_init.cs" />
+    <Compile Remove="Data\Migrations\20191117074653_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191120004719_init.cs" />
+    <Compile Remove="Data\Migrations\20191120004719_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191121040442_init.cs" />
+    <Compile Remove="Data\Migrations\20191121040442_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191121061451_init.cs" />
+    <Compile Remove="Data\Migrations\20191121061451_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191121152143_i.cs" />
+    <Compile Remove="Data\Migrations\20191121152143_i.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191128070036_init.cs" />
+    <Compile Remove="Data\Migrations\20191128070036_init.Designer.cs" />
+    <Compile Remove="Migrations\20191128070650_init.cs" />
+    <Compile Remove="Migrations\20191128070650_init.Designer.cs" />
+    <Compile Remove="Migrations\20191129015332_init.cs" />
+    <Compile Remove="Migrations\20191129015332_init.Designer.cs" />
+    <Compile Remove="Migrations\20191129153540_init.cs" />
+    <Compile Remove="Migrations\20191129153540_init.Designer.cs" />
+    <Compile Remove="Migrations\20191130061953_init.cs" />
+    <Compile Remove="Migrations\20191130061953_init.Designer.cs" />
+    <Compile Remove="Migrations\20191130070654_init.cs" />
+    <Compile Remove="Migrations\20191130070654_init.Designer.cs" />
+    <Compile Remove="Migrations\20191201010239_init.cs" />
+    <Compile Remove="Migrations\20191201010239_init.Designer.cs" />
+    <Compile Remove="Migrations\20191201090256_init.cs" />
+    <Compile Remove="Migrations\20191201090256_init.Designer.cs" />
+    <Compile Remove="Migrations\20191203051655_init.cs" />
+    <Compile Remove="Migrations\20191203051655_init.Designer.cs" />
+    <Compile Remove="Migrations\20191203125148_init.cs" />
+    <Compile Remove="Migrations\20191203125148_init.Designer.cs" />
+    <Compile Remove="Migrations\20191204080733_init.cs" />
+    <Compile Remove="Migrations\20191204080733_init.Designer.cs" />
+    <Compile Remove="Migrations\20191204130805_init.cs" />
+    <Compile Remove="Migrations\20191204130805_init.Designer.cs" />
+    <Compile Remove="Migrations\20191205034749_init.cs" />
+    <Compile Remove="Migrations\20191205034749_init.Designer.cs" />
+    <Compile Remove="Migrations\20191208072018_init.cs" />
+    <Compile Remove="Migrations\20191208072018_init.Designer.cs" />
+    <Compile Remove="Migrations\20191208133119_init.cs" />
+    <Compile Remove="Migrations\20191208133119_init.Designer.cs" />
+    <Compile Remove="Migrations\20191208134617_init.cs" />
+    <Compile Remove="Migrations\20191208134617_init.Designer.cs" />
+    <Compile Remove="Migrations\20191210013738_init.cs" />
+    <Compile Remove="Migrations\20191210013738_init.Designer.cs" />
+    <Compile Remove="Migrations\20191210015142_init.cs" />
+    <Compile Remove="Migrations\20191210015142_init.Designer.cs" />
+    <Compile Remove="Migrations\20191216085009_init.cs" />
+    <Compile Remove="Migrations\20191216085009_init.Designer.cs" />
+    <Compile Remove="Migrations\20191216085420_init.cs" />
+    <Compile Remove="Migrations\20191216085420_init.Designer.cs" />
+    <Compile Remove="Migrations\20191216133736_init.cs" />
+    <Compile Remove="Migrations\20191216133736_init.Designer.cs" />
+    <Compile Remove="Migrations\20191216135912_init.cs" />
+    <Compile Remove="Migrations\20191216135912_init.Designer.cs" />
+    <Compile Remove="Migrations\20191217025552_init.cs" />
+    <Compile Remove="Migrations\20191217025552_init.Designer.cs" />
+    <Compile Remove="Migrations\20191223053758_init.cs" />
+    <Compile Remove="Migrations\20191223053758_init.Designer.cs" />
+    <Compile Remove="Migrations\20200417010723_init.cs" />
+    <Compile Remove="Migrations\20200417010723_init.Designer.cs" />
+    <Compile Remove="Migrations\20200417015956_init.cs" />
+    <Compile Remove="Migrations\20200417015956_init.Designer.cs" />
+    <Compile Remove="Migrations\20200424114245_init.cs" />
+    <Compile Remove="Migrations\20200424114245_init.Designer.cs" />
+    <Compile Remove="Migrations\20200424123402_init.cs" />
+    <Compile Remove="Migrations\20200424123402_init.Designer.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="MailChimp.Net.V3" Version="4.2.1" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Paypal" Version="1.9.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Utility\" />
+    <Folder Include="Views\Shared\Components\UserName\" />
+    <Folder Include="wwwroot\images\BookImage\" />
+    <Folder Include="wwwroot\images\AuthorImage\" />
+    <Folder Include="wwwroot\images\BannerImage\" />
+  </ItemGroup>
+
+</Project>

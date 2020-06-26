@@ -1,0 +1,42 @@
+﻿@model BookStore.Models.Banner
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<br />
+<h4>Chỉnh sửa banner</h4>
+<hr />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ID" />
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a type="button" class="btn btn-success" asp-action="Index">
+            Quay lại
+        </a>
+    </div>
+}

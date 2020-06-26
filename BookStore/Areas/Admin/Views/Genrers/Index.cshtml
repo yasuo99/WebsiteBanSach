@@ -1,0 +1,47 @@
+﻿@*@model IEnumerable<BookStore.Models.Genrer>*@
+@model BookStore.Models.ViewModel.GenrerViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Genrer.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genrer.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genrer.BookGenrer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Genrers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookGenrer.Name)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.ID" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn border" page-class-normal="btn btn-default active"
+     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>

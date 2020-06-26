@@ -1,0 +1,105 @@
+﻿@*@model IEnumerable<BookStore.Models.Book>*@
+@model BookStore.Models.ViewModel.BooksViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info"> Danh sách tác phẩm</h2>
+        @using (Html.BeginForm("Index", "Books", FormMethod.Post))
+        {
+            <button type="submit" value="1" name="sold">Sản phẩm chưa từng được mua</button>
+        }
+    </div>
+    <div class="col-6 text-right">
+        <a asp-area="Admin" asp-action="Create" asp-controller="Books" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm tác phẩm</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.BookDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.BookPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.SpecialTag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Available)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Sold)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                <img style="width:180px;height:180px" src="@item.Image" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookDetail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialTag.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sold)
+            </td>
+            <td>
+                <div class="btn-group">
+                    <a type="button" class="btn btn-primary" asp-action="Edit" asp-controller="Books" asp-route-id="@item.ID"><i class="fas fa-edit"></i></a>
+                    <a type="button" class="btn btn-success" asp-action="Details" asp-controller="Books" asp-route-id="@item.ID"><i class="far fa-list-alt"></i></a>
+                    <a type="button" class="btn btn-danger" asp-action="Delete" asp-controller="Books" asp-route-id="@item.ID"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn border" page-class-normal="btn btn-default active"
+     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>

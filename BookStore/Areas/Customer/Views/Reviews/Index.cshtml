@@ -1,0 +1,68 @@
+﻿@model List<BookStore.Models.Review>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <br /><br />
+    <h4 class="text-info">Nhận xét của tôi <span style="font-size:12px;">(@Model.Count)</span></h4>
+    @*<tr class="table-info">
+            <th style="text-align:center; width:20%"></th>
+            <th style="text-align:center;">
+                <label>Đơn đặt ngày</label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().Book.BookName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().Book.BookDetail"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().Book.BookPrice"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().Star"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().CustomerReview"></label>
+            </th>
+
+            <th style="text-align:center;"></th>
+        </tr>*@
+<div class="border border-primary" style="width:100%;background-color:#ffffff">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+
+            <div class="col-md-3" style="width:20%">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Book.ID">
+                    <img src="@item.Book.Image" style="width: 100px;height:100px;margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                </a>
+            </div>
+            <div class="col-md-8">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Book.ID">
+                    <label>@item.Book.BookName</label>
+                </a>
+                <br />
+                <br />
+                <label>@item.Date</label>
+                <br />
+                <p>
+                    @item.CustomerReview
+                    <span> @item.Star</span>
+                </p>
+            </div>
+        </div>
+        <hr />
+    }
+    </div>
+</body>
+</html>

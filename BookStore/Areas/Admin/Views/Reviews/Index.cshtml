@@ -1,0 +1,83 @@
+﻿@model BookStore.Models.ViewModel.CustomerReviewViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <br />
+}
+<form class="form-inline" asp-area="Admin" asp-action="Index" asp-controller="Reviews">
+    <select class="browser-default custom-select form-control" name="value" style="width: 180px" onchange="this.form.submit();">
+        <option selected>Lọc</option>
+        <option value="confirm">Danh sách đã duyệt</option>
+        <option value="unconfirm">Danh sách chưa duyệt</option>
+        <option value="remove">Danh sách hủy</option>
+    </select>
+</form>
+
+<h4>Danh sách đánh giá(@Model.Reviews.Count())</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Sản phẩm
+            </th>
+            <th>
+                Tên khách hàng
+            </th>
+            <th>
+                Đánh giá
+            </th>
+            <th>
+                Nhận xét
+            </th>
+            <th>
+                Ngày gửi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Reviews)
+        {
+            <tr>
+                <td>
+                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID" style="width:180px;height:180px">
+                        <img src="@item.Book.Image" style="width:120px;height:120px; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                    </a>
+                    <label>@item.Book.BookName</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Star)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerReview)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        @if (item.State != "Đã duyệt")
+                        {
+                            <a type="button" class="btn btn-primary" asp-area="Admin" asp-controller="Reviews" asp-action="Confirm" asp-route-id="@item.ID">Duyệt đánh giá</a>
+                        }
+                        @if (item.State != "Không chấp nhận")
+                        {
+                            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Reviews" asp-action="UnConfirm" asp-route-id="@item.ID">Hủy đánh giá</a>
+                        }
+                        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

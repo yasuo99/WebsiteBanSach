@@ -1,0 +1,70 @@
+﻿@model BookStore.Models.ViewModel.AuthorsViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Chỉnh sửa tác giả</h4>
+<hr />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    if (Model.TriggerError != null)
+    {
+        <div style="color:goldenrod">Kí danh tác giả không được trùng. !!</div>
+        <br />
+    }
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Author.ID" />
+                <div class="form-group">
+                    <label asp-for="Author.FirstName" class="control-label"></label>
+                    <input asp-for="Author.FirstName" class="form-control" />
+                    <span asp-validation-for="Author.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author.SecondName" class="control-label"></label>
+                    <input asp-for="Author.SecondName" class="form-control" />
+                    <span asp-validation-for="Author.SecondName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="col-2">
+                        <label asp-for="Author.Image"></label>
+                    </div>
+                    <div class="col-5">
+                        <input type="file" name="files" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author.CompanyName" class="control-label"></label>
+                    <input asp-for="Author.CompanyName" class="form-control" />
+                    <span asp-validation-for="Author.CompanyName" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2"><label asp-for="Author.Alias" class="control-label"></label></div>
+                    <div class="col-5"><input asp-for="Author.Alias" class="form-control" /></div>
+                    <span asp-validation-for="Author.Alias" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+}
+

@@ -1,0 +1,37 @@
+﻿@model BookStore.Models.Publisher
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<br />
+<h3>Bạn có chắc chắn xóa?</h3>
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    <div>
+        <h4>Publisher</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}

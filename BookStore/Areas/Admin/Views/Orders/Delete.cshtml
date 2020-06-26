@@ -1,0 +1,67 @@
+﻿@model BookStore.Models.Order
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<br />
+<h3>Bạn có chắc muốn xóa?</h3>
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+
+    <div>
+        <h4>Order</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Discount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Discount.ID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shipper)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shipper.ID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.State)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.State)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}

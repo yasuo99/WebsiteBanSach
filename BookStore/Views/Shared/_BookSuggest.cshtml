@@ -1,0 +1,54 @@
+﻿@model BookStore.Models.ViewModel.AuthorsViewModel
+<br />
+<br />
+<h4>Danh sách tác phẩm của tác giả @Model.Author.SecondName</h4>
+@if (Model.Books.Count > 0)
+{
+    
+    <table class="table table-striped" width="100%">
+        <tr class="table-info">
+            <th style="text-align:center; width:20%"></th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookPrice"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Author.SecondName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Publisher.Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().SpecialTag.Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Amount"></label>
+            </th>
+            <th style="text-align:center;"></th>
+        </tr>
+
+            @*<div class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+
+                        <div class="row">
+                            <div class="col"><img src=@item.Image alt="1 slide"></div>
+                            <div class="col"><img src=@item.Image alt="2 slide"></div>
+                            <div class="col"><img src=@item.Image alt="3 slide"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><img src=@item.Image alt="4 slide"></div>
+                            <div class="col"><img src=@item.Image alt="5 slide"></div>
+                            <div class="col"><img src=@item.Image alt="6 slide"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </table>
+}
+else
+{
+    <div>No items add to shopping cart....</div>
+}

@@ -1,0 +1,19 @@
+﻿@model int
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<td style="width:150px">
+    <div class="btn-group" role="group">
+        <a type="button" class="btn btn-primary" href="@Url.Action("Edit/"+Model).Replace("%2F","/")">
+            <i class="fas fa-edit"></i>
+        </a>
+        <a type="button" class="btn btn-success" href="@Url.Action("Details/"+Model).Replace("%2F","/")">
+            <i class="far fa-list-alt"></i>
+        </a>
+        <a type="button" class="btn btn-danger" href="@Url.Action("Delete/"+Model).Replace("%2F","/")">
+            <i class="fas fa-trash-alt"></i>
+        </a>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    </div>
+</td>

@@ -1,0 +1,29 @@
+02/04/2020 16:42:40 --> ErrorThe remote server returned an error: (400) Bad Request.
+02/04/2020 16:46:24 --> ErrorThe remote server returned an error: (400) Bad Request.
+02/04/2020 17:40:23 --> ErrorThe remote server returned an error: (400) Bad Request.
+02/04/2020 18:39:28 --> ErrorThe remote server returned an error: (400) Bad Request.
+02/04/2020 20:36:08 --> ErrorpaymentId cannot be null or empty (Parameter 'paymentId')
+02/04/2020 20:39:51 --> ErrorpaymentId cannot be null or empty (Parameter 'paymentId')
+02/04/2020 20:48:25 --> ErrorThe remote server returned an error: (400) Bad Request.
+02/04/2020 21:03:45 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:45:33 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:47:17 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:52:20 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:52:41 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:55:49 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:58:08 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 09:59:19 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 10:05:32 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 10:11:14 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 10:16:43 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 10:21:48 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 10:43:12 --> ErrorpaymentId cannot be null or empty (Parameter 'paymentId')
+03/04/2020 18:03:32 --> ErrorObject reference not set to an instance of an object.
+03/04/2020 19:10:40 --> ErrorThe remote server returned an error: (400) Bad Request.
+03/04/2020 19:11:25 --> ErrorThe remote server returned an error: (400) Bad Request.
+04/04/2020 18:06:43 --> ErrorThe remote server returned an error: (400) Bad Request.
+05/04/2020 10:38:01 --> ErrorAn error occurred while updating the entries. See the inner exception for details.
+07/04/2020 08:47:48 --> ErrorAn error occurred while updating the entries. See the inner exception for details.
+07/04/2020 12:21:22 --> ErrorThe remote server returned an error: (400) Bad Request.
+18/05/2020 10:20:30 --> ErrorThe remote server returned an error: (400) Bad Request.
+18/05/2020 10:24:10 --> ErrorThe remote server returned an error: (400) Bad Request.

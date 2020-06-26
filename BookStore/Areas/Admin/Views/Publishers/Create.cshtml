@@ -1,0 +1,46 @@
+﻿@model BookStore.Models.Publisher
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<br />
+<h4>Thêm NXB</h4>
+<hr />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    if (Model.TriggerError != null)
+    {
+        <div style="color:goldenrod">NXB không được trùng. !!</div>
+        <div>@Model.TriggerError</div>
+        <br />
+    }
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+}
+

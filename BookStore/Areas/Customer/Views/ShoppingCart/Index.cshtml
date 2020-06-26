@@ -1,0 +1,140 @@
+﻿@model BookStore.Models.ViewModel.ShoppingCartViewModel
+@using BookStore.Extensions
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<h2 class="text-info">Giỏ hàng <span style="font-size:12px;">(@Model.Books.Count sản phẩm)</span></h2>
+<br />
+@if (Model.Books.Count > 0)
+{
+    <div class="container border border-secondary rounded" style="padding:15px;">
+        <div class="row">
+            <div class="col-8" style="border-right:1px solid #bbb9b9;">
+                <table class="table table-striped" width="100%">
+                    <tr class="table-info">
+                        <th style="text-align:center; width:20%"></th>
+                        <th style="text-align:center;">
+                            <label asp-for="@Model.Books.FirstOrDefault().BookName"></label>
+                        </th>
+                        <th style="text-align:center;">
+                            <label asp-for="@Model.Books.FirstOrDefault().BookPrice"></label>
+                        </th>
+                        <th style="text-align:center;">
+                            <label asp-for="@Model.Books.FirstOrDefault().Author.SecondName"></label>
+                        </th>
+                        <th style="text-align:center;">
+                            <label asp-for="@Model.Books.FirstOrDefault().Publisher.Name"></label>
+                        </th>
+                        <th style="text-align:center;">
+                            <label asp-for="@Model.Books.FirstOrDefault().SpecialTag.Name"></label>
+                        </th>
+                        <th style="text-align:center;">
+                            <label asp-for="@Model.Books.FirstOrDefault().Amount"></label>
+                        </th>
+                        <th style="text-align:center;"></th>
+                    </tr>
+                    @foreach (var item in Model.Books)
+                    {
+                        <tr style="padding:50px;">
+                            <td>
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                                    <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                                </a>
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => item.BookName)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => item.BookPrice)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => item.Author.SecondName)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => item.Publisher.Name)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => item.SpecialTag.Name)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => item.Amount)
+                            </td>
+
+                            <td style="text-align:center">
+                                <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="Remove" asp-route-id="@item.ID">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+                <hr />
+                <div>
+                    <label>Tổng giá trị đơn hàng tạm tính:  </label> <span>@Model.Total</span>
+                </div>
+            </div>
+            <div class="col-4" style="padding-left:30px;">
+                <div class="row border-dark">
+                    @using (Html.BeginForm("Index", "ShoppingCart", FormMethod.Post))
+                    {
+                        <div class="col-12">
+                            <label>Thông tin giao hàng(Bỏ qua nếu giao đến địa chỉ sẵn có) : </label>
+                        </div>
+                        <div class="col-12">
+                            <label>Tên người nhận : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Order.Name" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>SĐT người nhận : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Order.PhoneNumber" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Địa chỉ người nhận : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Order.Address" class="form-control" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Mã giảm giá</label>
+                            <select asp-for="@Model.Order.DiscountID" class="form-control" asp-items="ViewBag.DiscountID"></select>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" id="btnPlaceOrder" class="btn btn-success">Đặt hàng</button>
+                        </div>
+
+                    }
+                    <div>
+                        <a asp-action="PaymentWithPaypal" asp-controller="Paypal" class="btn btn-success">Thanh toán bằng paypal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="container border border-light" style="height: 400px;background-color:white">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="col-sm-5 offset-sm-4">Không có sản phẩm nào có trong giỏ hàng của bạn</div>
+        <div class="col-sm-6 offset-sm-5">
+            <a asp-action="Index" asp-controller="Home" class="nav-link btn" style="background-color:#fdd835;border-radius:5px;text-align:center;width: 225px">Mua ngay</a>
+        </div>
+    </div>
+}

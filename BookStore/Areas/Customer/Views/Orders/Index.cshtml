@@ -1,0 +1,114 @@
+﻿@model BookStore.Models.ViewModel.CustomerOrderViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách đơn hàng của bạn</title>
+</head>
+<body>
+    <br />
+    <br />
+    <h5>Danh sách đơn hàng của bạn(@Model.Orders.Count đơn hàng)</h5>
+    @if (Model.Orders.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order.PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order.Discount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order.Total)
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Orders)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount.Value)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State)
+                        </td>
+                        <td>
+                            <a type="button" class="btn btn-success" asp-action="Details" asp-route-id="@item.ID">
+                                <i class="far fa-list-alt"></i>
+                            </a>
+                            @if (item.State == "Chưa xác nhận")
+                            {
+                                <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            }
+                            @if (item.State == "Xác nhận")
+                            {
+                                <a type="button" class="btn btn-success" asp-action="Receive" asp-route-id="@item.ID">Đã nhận</a>
+                            }
+                            @if (item.State == "Đã nhận hàng")
+                            {
+                                <a type="button" class="btn btn-success" asp-area="Customer" asp-controller="Reviews" asp-action="CreateReviewForOrder" asp-route-id="@item.ID">Đánh giá</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="container border border-light" style="height: 400px;background-color:white">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="col-sm-5 offset-sm-5">Bạn chưa có đơn hàng nào</div>
+            <div class="col-sm-6 offset-sm-5">
+                <a asp-action="Index" asp-controller="Home" class="nav-link btn" style="background-color:#fdd835;border-radius:5px;text-align:center;width: 190px">Mua hàng ngay</a>
+            </div>
+        </div>
+    }
+</body>
+</html>

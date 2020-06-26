@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav float-lg-right" style="margin-right: 10px">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <div class="nav-link dropdown">
+                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@await Component.InvokeAsync("UserName")</a>
+                <div class="dropdown-content">
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <a class="dropdown-item" style="border-radius:10px" asp-area="Customer" asp-controller="Orders" asp-action="Index">Đơn hàng của tôi</a>
+                        <a class="dropdown-item" style="border-radius:10px" asp-area="Customer" asp-controller="Reviews" asp-action="Index">Nhận xét của tôi</a>
+                    }  
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="btn-link dropdown-item" style="border-radius:10px;text-align:center">Đăng xuất</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <div class="nav-link dropdown">
+                <a class="dropbtn nav-link" asp-area="Identity" asp-page="/Account/Login"><i class="far fa-user"></i> Đăng nhập</a>
+                <div class="dropdown-content">
+                    <a class="dropdown-item" style="border-radius:10px" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+                    <a class="dropdown-item" style="border-radius:10px" asp-area="Identity" asp-page="/Account/Register">Đăng kí</a>
+                </div>
+            </div>
+        </li>
+
+    }
+</ul>

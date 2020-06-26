@@ -1,0 +1,90 @@
+﻿@model BookStore.Models.ViewModel.CustomerReviewViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đánh giá sản phẩm</title>
+</head>
+<body>
+    <br />
+    <br />
+    <h5>Danh sách sản phẩm trong đơn hàng này của bạn(@Model.Reviews.Count sản phẩm)</h5>
+    <table class="table table-striped" width="100%">
+        <tr class="table-info">
+            <th style="text-align:center; width:20%"></th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookDetail"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Author.SecondName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().SpecialTag.Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Publisher.Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookPrice"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Reviews.FirstOrDefault().Star"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Reviews.FirstOrDefault().CustomerReview"></label>
+            </th>
+            <th style="text-align:center;"></th>
+        </tr>
+        @foreach (var item in Model.Reviews)
+        {
+            <tr style="padding:50px;">
+                <td>
+                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Book.ID">
+                        <img src="@item.Book.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookDetail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Author.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.SpecialTag.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Publisher.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Star)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerReview)
+                </td>
+                @if (item.CustomerReview == null)
+                {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Thêm đánh giá</a>
+                </td>
+                }
+            </tr>
+        }
+    </table>
+    <a type="button" class="btn btn-success" asp-area="Customer" asp-controller="Orders" asp-action="Index">Quay lại</a>
+</body>
+</html>

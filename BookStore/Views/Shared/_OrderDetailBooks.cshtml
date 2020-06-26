@@ -1,0 +1,69 @@
+﻿@model BookStore.Models.ViewModel.CustomerOrderViewModel
+
+@if (Model.Books.Count > 0)
+{
+    <table class="table table-striped" width="100%">
+        <tr class="table-info">
+            <th style="text-align:center; width:20%"></th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().BookPrice"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Author.SecondName"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Publisher.Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().SpecialTag.Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Books.FirstOrDefault().Amount"></label>
+            </th>
+            <th style="text-align:center;"></th>
+        </tr>
+        @foreach (var item in Model.Books)
+        {
+            <tr style="padding:50px;">
+                <td>
+                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                    </a>
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(c => item.BookName)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(c => item.BookPrice)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(c => item.Author.SecondName)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(c => item.Publisher.Name)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(c => item.SpecialTag.Name)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(c => item.Amount)
+                </td>
+                <td style="text-align:center">
+                    @using (Html.BeginForm("RemoveInsideOrder", "Orders", FormMethod.Post))
+                    {
+                        <input type="hidden" asp-for=@Model.Order.ID name="oid" />
+                        <input type="hidden" asp-for=@item.ID name="bid" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    }
+                </td>
+            </tr>
+
+        }
+    </table>
+    <a asp-action="Index" asp-controller="Home" class="nav-link btn" style="background-color:#fdd835;border-radius:5px;text-align:center;width: 170px">Thêm sản phẩm</a>
+}

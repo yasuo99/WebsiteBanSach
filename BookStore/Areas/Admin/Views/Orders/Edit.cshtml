@@ -1,0 +1,82 @@
+﻿@model BookStore.Models.ViewModel.CustomerOrderViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+<br />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    <h4>Order</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.Order.ID" />
+                <input type="hidden" asp-for="@Model.Order.ApplicationUserID" />
+                <input type="hidden" asp-for="@Model.Order.Date" />
+                <div class="form-group">
+                    <label class="control-label">Tên người đặt</label>
+                    <input asp-for="@Model.Order.ApplicationUser.Name" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tên người nhận</label>
+                    <input asp-for="@Model.Order.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Order.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Địa chỉ giao hàng</label>
+                    <input asp-for="@Model.Order.Address" class="form-control" />
+                    <span asp-validation-for="@Model.Order.Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">SĐT người nhận</label>
+                    <input asp-for="@Model.Order.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.Order.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Order.DiscountID" class="control-label"></label>
+                    <select asp-for="@Model.Order.DiscountID" class="form-control" asp-items="ViewBag.DiscountID"></select>
+                    <span asp-validation-for="@Model.Order.DiscountID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Order.ShipperID" class="control-label"></label>
+                    <select asp-for="@Model.Order.ShipperID" class="form-control" asp-items="ViewBag.ShipperID"></select>
+                    <span asp-validation-for="@Model.Order.ShipperID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Order.Total" class="control-label"></label>
+                    <input asp-for="@Model.Order.Total" class="form-control" readonly />
+                    <span asp-validation-for="@Model.Order.Total" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Order.State" class="control-label"></label>
+                    <input asp-for="@Model.Order.State" class="form-control" readonly />
+                    <span asp-validation-for="@Model.Order.State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Xác nhận đơn hàng" class="btn btn-primary" />
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-8">
+            @* Partial View *@
+            <label>Chi tiết đơn hàng</label>
+            <partial name="~/Views/Shared/_OrderBookConfirmPartial.cshtml" model="@Model.Books" />
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
+

@@ -1,0 +1,18 @@
+﻿@model BookStore.Models.ViewModel.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "OrderConfirmation";
+}
+
+<h2 class="text-info">Order Confirmation</h2>
+<div class="form-text">
+    Đơn hàng đã được khởi tạo. Vui lòng chờ xác nhận thông tin.
+</div>
+<br />
+
+<partial name="~/Views/Shared/_OrderCustomerDetail.cshtml" model="Model.Order" />
+<br />
+
+<partial name="~/Views/Shared/_OrderBookConfirmPartial.cshtml" model="Model.Books" />
+
+<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success"> Back to Books</a>
+

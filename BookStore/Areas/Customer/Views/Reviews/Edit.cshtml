@@ -1,0 +1,53 @@
+﻿@model BookStore.Models.ViewModel.CustomerReviewViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+    <h4>Review</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.Review.ID" />
+                <input type="hidden" asp-for="@Model.Review.OrderID" />
+                <div class="form-group">
+                    <label class="control-label">@Model.Review.Book.BookName</label>
+                    <br />
+                    <label class="control-label">@Model.Review.Book.BookDetail</label>
+                    <br />
+                    <label class="control-label">@Model.Review.Book.BookPrice<span>đ</span></label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Review.Star" class="control-label"></label>
+                    <input asp-for="@Model.Review.Star" class="form-control" value="0" min="1" max="5" />
+                    <span asp-validation-for="@Model.Review.Star" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Review.CustomerReview" class="control-label"></label>
+                    <input asp-for="@Model.Review.CustomerReview" class="form-control" />
+                    <span asp-validation-for="@Model.Review.CustomerReview" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Hoàn thành" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a type="button" class="btn btn-success" asp-action="CreateReviewForOrder" asp-route-id="@Model.Review.OrderID">Quay lại</a>
+    </div>
+
+</body>
+</html>

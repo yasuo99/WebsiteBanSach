@@ -1,0 +1,5 @@
+User-agent: *  
+Disallow: /Areas/
+Disallow: /Areas/Admin/
+Disallow: /Areas/Identity/
+Sitemap: E:\T-4-12-2019\Web-master\BookStore\BookStore\wwwroot\sitemap.xml

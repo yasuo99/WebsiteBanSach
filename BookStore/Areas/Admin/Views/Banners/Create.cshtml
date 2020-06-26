@@ -1,0 +1,45 @@
+﻿@model BookStore.Models.Banner
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<br />
+<h4>Thêm banner</h4>
+<hr />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" enctype="multipart/form-data" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Image"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Tạo" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a type="button" class="btn btn-success" asp-action="Index">
+            Quay lại
+        </a>
+    </div>
+}

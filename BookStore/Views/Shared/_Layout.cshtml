@@ -1,0 +1,287 @@
+﻿@using BookStore.Extensions
+@using BookStore.Utility
+@using Microsoft.AspNetCore.Http
+@using BookStore.Models.ViewModel
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookStore</title>
+    <environment include="Development">
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/css//owl.theme.default.min.css">
+        <link rel="stylesheet" href="~/css/jquery-ui.css" />
+        <link rel="stylesheet" href="~/css/jquery.timepicker.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    </environment>
+    <environment exclude="Development">
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/css//owl.theme.default.min.css">
+        <link rel="stylesheet" href="~/css/jquery-ui.css" />
+        <link rel="stylesheet" href="~/css/jquery.timepicker.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    </environment>
+    <style type="text/css">
+        #map {
+            margin-top: 10px;
+            height: 200px;
+            width: 227px;
+        }
+
+        #mc_embed_signup {
+            background: #fff;
+            clear: left;
+            font: 14px Helvetica,Arial,sans-serif;
+        }
+        /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+                    We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCReElQk47oJnb-V7w_bA_053pxQ94qGHQ&callback=initMap"
+            defer></script>
+    <script>
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var labelIndex = 0;
+        (function (exports) {
+            "use strict";
+            function initMap() {
+                var triangleCoords = [
+                    { lat: 25.774, lng: -80.190 },
+                    { lat: 18.466, lng: -66.118 },
+                    { lat: 32.321, lng: -64.757 }
+                ];
+                var bermudaTriangle = new google.maps.Polygon({
+                    paths: triangleCoords,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 3,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35
+                });
+                
+                // Vi tri cua hang
+                var myShop = { lat: 10.845500, lng: 106.796731 };
+                // Cai dat ban do va set vi tri trung tam la cua hang
+                var map = new google.maps.Map(
+                    document.getElementById('map'), { zoom: 12, center: myShop });
+                // Them marker danh dau vi tri cua hang
+                var marker = new google.maps.Marker({ position: myShop, map: map });
+                bermudaTriangle.setMap(map);
+                google.maps.event.addListener(map, 'click', function (event) {
+                    addMarker(event.latLng, map);
+                });
+                var geocoder = new google.maps.Geocoder();
+
+                document.getElementById('submit').addEventListener('click', function () {
+                    geocodeAddress(geocoder, map);
+                });
+                var cityCircle = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: myShop,
+                    radius: 40000
+                });
+            }
+            exports.initMap = initMap;
+        })((this.window = this.window || {}));
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            var marker = new google.maps.Marker({
+                position: location,
+                icon: "http://maps.google.com/mapfiles/marker" + labels[labelIndex++ % labels.length] + ".png",
+                map: map,
+                animation: google.maps.Animation.BOUNCE
+            });
+        }
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 fixed-top" style="background-color:hsl(205,100%,55%)">
+            <div class="container">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">ThanhKhang<img src="~/images/Logo/books-stack-of-three.png" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+                    <ul class="navbar-nav">
+                        @if (User.IsInRole("Super Admin") || User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <div class="nav-link dropdown">
+                                    <button class="dropbtn">Menu</button>
+                                    <div class="dropdown-content">
+                                        @if (User.IsInRole("Super Admin"))
+                                        {
+                                            <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="AdminUser" asp-action="Index">Tài khoản</a>
+                                        }
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Banners" asp-action="Index">Banner quảng cáo</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Books" asp-action="Index">Sách</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Authors" asp-action="Index">Tác giả</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="BookGenrers" asp-action="Index">Thể loại</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Orders" asp-action="Index">Đơn hàng</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Publishers" asp-action="Index">NXB</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Reviews" asp-action="Index">Đánh giá</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Shippers" asp-action="Index">Shipper</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="Discounts" asp-action="Index">Mã giảm giá</a>
+                                        <a class="dropdown-item" style="border-radius:10px" asp-area="Admin" asp-controller="SpecialTags" asp-action="Index">Thẻ tag</a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        @if (!(User.IsInRole("Super Admin") || User.IsInRole("Manager")))
+                        {
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<ShoppingSessionViewModel>>("ssShoppingCart") != null)
+                            {
+                                <li style="color:white">
+                                    <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link text-white">
+                                        <i class="fas fa-shopping-cart"></i> &nbsp;
+                                        @{
+                                            var count = HttpContextAccessor.HttpContext.Session.Get<List<ShoppingSessionViewModel>>("ssShoppingCart").Count;
+                                        }
+                                        (@count)
+                                    </a>
+
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li style="color:white">
+                                    <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link text-white">
+                                        <i class="fas fa-shopping-cart"></i> &nbsp;
+
+                                        (0)
+                                    </a>
+
+                                </li>
+
+                            }
+                        }
+
+                    </ul>
+                    <partial name="_SearchPartial" />
+                </div>
+
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <partial name="_CookieConsentPartial" />
+    <div class="main-content">
+        <div class="main-body-content">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    @if (!(User.IsInRole("Super Admin") || User.IsInRole("Manager")))
+    {
+        <footer class="border-top main-footer text-muted">
+
+            <!----------- Footer ------------>
+            <div class="row" style="background-color:white">
+                <div class="col-6 footer-nav animated fadeInDown">
+                    <div id="floating-panel">
+                        <input id="address" type="text" value="Ho Chi Minh">
+                        <input id="submit" type="button" value="Đi đến">
+                    </div>
+                    <div id="map"></div>
+                    <input id="width" width="3" placeholder="Width" style="width:111.5px" type="number" onchange="ChangeSize()" />
+                </div>
+                <div class="col-3 footer-social animated fadeInDown">
+                    <h4>Tác giả</h4>
+                    <ul>
+                        <li class="list-unstyled"><i class="fab fa-facebook-square" style="color: blue"></i><a href="https://www.facebook.com/luyen.ngoc.thanh"> Thanh's Facebook</a></li>
+                        <li class="list-unstyled"><i class="fab fa-facebook-square" style="color: blue"></i><a href="https://www.facebook.com/o.greenbluedk.999"> Khang's Facebook</a></li>
+                    </ul>
+                </div>
+                <div class="col-3 footer-ns animated fadeInRight">
+                    <!-- Begin Mailchimp Signup Form -->
+
+                    <div id="mc_embed_signup">
+                        <form action="https://somee.us10.list-manage.com/subscribe/post?u=ded502b5df6087eb46dbeacef&amp;id=9219a39f6c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div id="mc_embed_signup_scroll">
+                                <h2>Đăng ký và nhận tin tức mới nhất</h2>
+                                <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL">
+                                        Email Address  <span class="asterisk">*</span>
+                                    </label>
+                                    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                                </div>
+                                <div id="mce-responses" class="clear">
+                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ded502b5df6087eb46dbeacef_9219a39f6c" tabindex="-1" value=""></div>
+                                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+                    <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+                    <!--End mc_embed_signup-->
+                </div>
+            </div>
+        </footer>
+    }
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/jquery-ui.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.timepicker.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/owl.carousel.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/jquery-ui.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.timepicker.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/owl.carousel.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+    <script>
+        function ChangeSize() {
+            var width = document.getElementById("width").value;
+            document.getElementById("map").style.width = width + "px";
+        }
+    </script>
+</body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+</html>

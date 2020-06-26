@@ -1,0 +1,49 @@
+﻿@*@model IEnumerable<BookStore.Models.Shipper>*@
+@model BookStore.Models.ViewModel.ShippersViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info"> Danh sách thể loại</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-area="Admin" asp-action="Create" asp-controller="Shippers" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm nv giao hàng</a>
+        </div>
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipper.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipper.Phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Shippers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.ID" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn border" page-class-normal="btn btn-default active"
+     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>

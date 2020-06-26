@@ -1,0 +1,86 @@
+﻿@*@model IEnumerable<BookStore.Models.Order>*@
+@model BookStore.Models.ViewModel.OrdersViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<h4>Danh sách hóa đơn đặt hàng(@Model.Orders.Count)</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Người đặt
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.Shipper)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.State)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount.Value)%
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shipper.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                <div class="btn-group" role="group">
+                    @if (item.State == "Chưa xác nhận")
+                    {
+                        <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    }
+                    <a type="button" class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">
+                        <i class="far fa-list-alt"></i>
+                    </a>
+                    @if (item.State != "Đã nhận hàng")
+                    {
+                        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">
+                            <i class="fas fa-trash-alt"></i>
+
+                        </a>
+                    }
+                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn border" page-class-normal="btn btn-default active"
+     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+

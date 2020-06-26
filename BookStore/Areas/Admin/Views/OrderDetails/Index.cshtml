@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BookStore.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.ID)
+            </td>
+            <td>
+                <partial name="_TableButtonPartial" model="item.ID" />
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

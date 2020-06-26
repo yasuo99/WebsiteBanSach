@@ -1,0 +1,105 @@
+﻿@model BookStore.Models.ViewModel.BooksViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<br />
+<br />
+<h4>Thêm sách</h4>
+<hr />
+@if (Model.PermissionError != null)
+{
+    <div style="color:red">Bạn không có quyền này vui lòng liên hệ quản lí.</div>
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    if (Model.TriggerError != null)
+    {
+<div style="color:goldenrod">Tên sách bị trùng hoặc ngày xuất bản vượt quá ngày hiện tại</div>
+<br />
+    }
+<form method="post" enctype="multipart/form-data" asp-action="Create" style="background-color:#ffffff">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2"><label asp-for="Book.BookName" class="control-label"></label></div>
+            <div class="col-5"><input asp-for="Book.BookName" class="form-control" /></div>
+            <span asp-validation-for="Book.BookName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Book.Image"></label>
+            </div>
+            <div class="col-5">
+                <input type="file" name="files" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"><label asp-for="Book.BookDetail" class="control-label"></label></div>
+            <div class="col-5"><input asp-for="Book.BookDetail" class="form-control" /></div>
+            <span asp-validation-for="Book.BookDetail" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"><label asp-for="Book.ReleaseDate" class="control-label"></label></div>
+            <div class="col-5"><input asp-for="Book.ReleaseDate" class="form-control" /></div>
+            <span asp-validation-for="Book.ReleaseDate" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Book.AuthorID" class="control-label"></label></div>
+            <div class="col-5"> <select asp-for="Book.AuthorID" class="form-control" asp-items="ViewBag.AuthorID"></select></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Book.PublisherID" class="control-label"></label></div>
+            <div class="col-5"> <select asp-for="Book.PublisherID" class="form-control" asp-items="ViewBag.PublisherID"></select></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Book.BookPrice" class="control-label"></label></div>
+            <div class="col-5"> <input asp-for="Book.BookPrice" class="form-control" /></div>
+            <span asp-validation-for="Book.BookPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Book.SpecialTagID" class="control-label"></label></div>
+            <div class="col-5"> <select asp-for="Book.SpecialTagID" class="form-control" asp-items="ViewBag.SpecialTagID"></select></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Book.Available" class="control-label"></label></div>
+            <div class="col-5"> <input asp-for="Book.Available" class="form-control" /></div>
+            <span asp-validation-for="Book.Available" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Book.Alias" class="control-label"></label></div>
+            <div class="col-5"> <input asp-for="Book.Alias" class="form-control" /></div>
+            <span asp-validation-for="Book.Alias" class="text-danger"></span>
+        </div>
+        <div class="form-group border rounded">
+            <label>Thể loại</label>
+
+            @for (int i = 0; i < Model.GenrerSelectedForBookViewModels.Count; i++)
+            {
+                <div class="form-group row">
+                    <div class="col-2"><label>@Model.GenrerSelectedForBookViewModels[i].BookGenrer.Name</label></div>
+                    <input hidden asp-for="@Model.GenrerSelectedForBookViewModels[i].BookGenrer.ID" />
+                    <input hidden asp-for="@Model.GenrerSelectedForBookViewModels[i].BookGenrer.Name" />
+                    <div class="col-2"><input asp-for="@Model.GenrerSelectedForBookViewModels[i].Selected" type="checkbox" class="form-control" /></div>
+
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Quay lại</a>
+</div>
+}
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

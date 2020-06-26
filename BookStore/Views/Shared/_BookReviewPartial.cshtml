@@ -1,0 +1,82 @@
+﻿@model BookStore.Models.ViewModel.BooksViewModel
+
+@if (Model.Reviews.Count > 0)
+{
+    <div class="container">
+        @foreach (var item in Model.ReplyReviewViewModels)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fas fa-user-circle" style="font-size:40px"></i>
+                    <br />
+                    <label>@item.Review.ApplicationUser.Name</label>
+                    <br />
+                    <label>@item.Review.Date</label>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-7">
+                    <div class="row">
+                        @for (int i = 0; i < item.Review.Star; i++)
+                        {
+                            <i class="fas fa-star" style="color:gold"></i>
+                        }
+                        @for (int i = item.Review.Star; i < 5; i++)
+                        {
+                            <i class="far fa-star" style="color:gold"></i>
+                        }
+                    </div>
+                    <label style="color:hsl(134,68%,42%);font-size:12px"><i class="far fa-check-circle" style="color:green"></i> Đã mua sản phẩm này.</label>
+                    <p style="color:hsl(0,0%,31%);text-align:justify">@item.Review.CustomerReview</p>
+                    @if (User.IsInRole("Customer") || User.IsInRole("Super Admin") || User.IsInRole("Manager"))
+                    {
+                    <a style="background-color:transparent;color:hsl(208,100%,47%);" onclick="Reply(@item.Review.ID)">Gửi trả lời</a>
+                    }
+                    <br />
+                    <div id="@item.Review.ID" hidden class="form-group">
+                        @using (Html.BeginForm("ReplyReview", "Home", FormMethod.Post, new { htmlAttributes = new { @class = "form-control", @id = "reply" } }))
+                        {
+                            <input type="hidden" asp-for="@item.Review.ID" name="rid" />
+                            <input type="hidden" asp-for="@Model.Book.ID" name="bid" />
+                            <textarea style="width: 620px;height:80px" name="replyreview"></textarea>
+                            <input type="submit" class="btn btn-primary" value="Gửi trả lời của bạn" />
+                            <button type="button" class="btn btn-light" onclick="Cancel(@item.Review.ID)">Hủy bỏ</button>
+                        }
+                    </div>
+                    <div class="form-group @item.Review.ID">
+                        @foreach (var comment in @item.Comments)
+                        {
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="fas fa-user-circle" style="font-size:40px"></i>
+                                </div>
+                                <div class="col-md-7">
+                                    <label style="font-weight:500;line-height:22px;color:hsl(0,0%,14%)">@comment.ApplicationUser.Name</label>
+                                    <p style="font-size:13px">@comment.ReplyReview</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>                
+                <hr />
+            </div>
+        }
+        <div page-model="@Model.PagingInfo" page-action="Details" page-classes-enabled="true"
+             page-class="btn border" page-class-normal="btn btn-default active"
+             page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+    </div>
+    
+}
+else
+{
+    <div>Sản phẩm chưa có đánh giá</div>
+}
+<script>
+    function Reply(id) {
+        document.getElementById(id).hidden = false;      
+    }
+    function Cancel(id) {
+        document.getElementById(id).hidden = true;
+    }
+</script>
